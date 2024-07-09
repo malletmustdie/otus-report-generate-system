@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "_helpers.external-data-service.name" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "_helpers.external-data-service.name" . }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "_helpers.external-data-service.name" . }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml")  . | sha256sum }}
+      labels:
+        app.kubernetes.io/name: {{ include "_helpers.external-data-service.name" . }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          resources:
+            {{ toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            {{- include "_helpers.external-data-service.volume-mounts.application-yml" . | nindent 12 }}
+            {{- include "_helpers.external-data-service.volume-mounts.secret-yml" . | nindent 12 }}
+      volumes:
+        {{- include "_helpers.external-data-service.volumes.application-yml" . | nindent 12 }}
+        {{- include "_helpers.external-data-service.volumes.secret-yml" . | nindent 12 }}

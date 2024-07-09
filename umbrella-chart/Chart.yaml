@@ -1,0 +1,9 @@
+apiVersion: v2
+name: umbrella-chart
+description: Umbrella helm chart for Kubernetes
+version: 0.1.0
+
+dependencies:
+  - name: external-data-service
+    version: 0.1.0
+    repository: "file://../external-data-service/external-data-service-chart"
