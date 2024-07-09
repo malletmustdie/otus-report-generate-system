@@ -37,3 +37,7 @@ build/
 /external-data-service/.mvn/
 /external-data-service/mvnw
 /external-data-service/mvnw.cmd
+/report-generator-service/.mvn/
+/report-generator-service/HELP.md
+/report-generator-service/mvnw
+/report-generator-service/mvnw.cmd
