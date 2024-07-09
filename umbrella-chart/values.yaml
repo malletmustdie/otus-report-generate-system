@@ -1,0 +1,10 @@
+billing-service:
+  database:
+    host: postgres-postgresql
+    port: 5432
+    db: billing_service
+order-service:
+  database:
+    host: postgres-postgresql
+    port: 5432
+    db: order_service
