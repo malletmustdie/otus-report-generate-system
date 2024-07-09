@@ -1,3 +1,10 @@
+server:
+  port: 8083
+
 spring:
   application:
     name: report-generator-service
+
+service:
+  data-generation-service:
+    base-uri: http://localhost:8084/api/v1/warehouse

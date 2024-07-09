@@ -12,9 +12,9 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import org.springframework.context.ApplicationContext;
+import ru.elias.reportgenerator.domain.report.ReportFormat;
+import ru.elias.reportgenerator.domain.report.data.ReportData;
 import ru.elias.reportgenerator.error.exception.GenerateReportException;
-import ru.elias.reportgenerator.service.dto.report.ReportData;
-import ru.elias.reportgenerator.service.dto.report.ReportFormat;
 
 @Slf4j
 public abstract class JasperReportFiller<T extends ReportData> {
@@ -46,8 +46,7 @@ public abstract class JasperReportFiller<T extends ReportData> {
     protected JasperReport getJasperReport(ApplicationContext context,
                                            String fileName) throws IOException, JRException {
         setGlobalPropertiesJasperReport();
-        var reportTemplateFile =
-                context.getResource(fileName).getInputStream();
+        var reportTemplateFile = context.getResource(fileName).getInputStream();
         return JasperCompileManager.compileReport(reportTemplateFile);
     }
 
@@ -72,3 +71,4 @@ public abstract class JasperReportFiller<T extends ReportData> {
     }
 
 }
+

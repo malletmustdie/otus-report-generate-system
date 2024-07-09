@@ -1,4 +1,4 @@
-package ru.elias.reportgenerator.config;
+package ru.elias.data.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,22 +8,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
-import ru.elias.reportgenerator.service.client.DataServiceClient;
+import ru.elias.data.client.ExternalClient;
 
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class HttpClientsConfig {
 
-    @Value("${service.data-generation-service.base-uri}")
-    private String dataServiceUri;
+    @Value("${data.service.external-service.base-uri}")
+    private String externalUri;
 
     @Bean
-    public DataServiceClient dataServiceClient(RestClient.Builder restClientBuilder) {
+    public ExternalClient billingClient(RestClient.Builder restClientBuilder) {
         var restClient = restClientBuilder
-                .baseUrl(dataServiceUri)
+                .baseUrl(externalUri)
                 .build();
-        return buildDeclarativeRestClient(restClient, DataServiceClient.class);
+        return buildDeclarativeRestClient(restClient, ExternalClient.class);
     }
 
     private <T> T buildDeclarativeRestClient(RestClient restClient, Class<T> targetClass) {

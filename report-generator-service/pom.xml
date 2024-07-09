@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>21</java.version>
-        <japser.version>6.21.3</japser.version>
+        <japser.version>6.20.0</japser.version>
     </properties>
 
     <dependencies>
