@@ -1,0 +1,15 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: data-generation-service
+
+data:
+  service:
+    external-service:
+      base-uri: http://localhost:8089/api/v1/data
+
+logging:
+  level:
+    ru.elias.data: DEBUG

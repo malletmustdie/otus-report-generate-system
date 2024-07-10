@@ -10,12 +10,13 @@
     </parent>
 
     <groupId>ru.elias</groupId>
-    <artifactId>external-data-service</artifactId>
+    <artifactId>report-generator-service</artifactId>
     <version>0.1.1</version>
-    <name>external-data-service</name>
+    <name>report-generator-service</name>
 
     <properties>
         <java.version>21</java.version>
+        <japser.version>6.20.0</japser.version>
     </properties>
 
     <dependencies>
@@ -23,21 +24,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- DB -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
         </dependency>
 
         <!-- Actuator -->
@@ -57,6 +43,17 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${japser.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>${japser.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

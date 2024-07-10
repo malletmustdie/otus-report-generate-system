@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Название и версия образа
-IMAGE_NAME="external-data-service"
+IMAGE_NAME="data-generation-service"
 IMAGE_VERSION="0.1.1"
 DOCKER_HUB_USERNAME="malletmustdie"
 

@@ -1,4 +1,3 @@
-external-data-service/HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -34,6 +33,17 @@ build/
 /.mvn/
 /mvnw
 /mvnw.cmd
+
+/data-generation-service/.mvn/
+/data-generation-service/HELP.md
+/data-generation-service/mvnw
+/data-generation-service/mvnw.cmd
 /external-data-service/.mvn/
+/external-data-service/target/
+/external-data-service/HELP.md
 /external-data-service/mvnw
 /external-data-service/mvnw.cmd
+/report-generator-service/.mvn/
+/report-generator-service/HELP.md
+/report-generator-service/mvnw
+/report-generator-service/mvnw.cmd
