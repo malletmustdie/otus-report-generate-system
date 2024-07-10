@@ -11,7 +11,7 @@
 
     <groupId>ru.elias</groupId>
     <artifactId>external-data-service</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <name>external-data-service</name>
 
     <properties>

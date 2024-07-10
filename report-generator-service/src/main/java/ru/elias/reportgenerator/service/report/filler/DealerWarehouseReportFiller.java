@@ -1,6 +1,7 @@
 package ru.elias.reportgenerator.service.report.filler;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.SneakyThrows;
@@ -20,6 +21,7 @@ import ru.elias.reportgenerator.domain.report.data.DealerWarehouseReportData;
 public class DealerWarehouseReportFiller extends JasperReportFiller<DealerWarehouseReportData> {
 
     private static final String REPORT_DATA = "REPORT_DATA";
+    private static final String REPORT_DATE = "REPORT_DATE";
 
     @Autowired
     public DealerWarehouseReportFiller(ApplicationContext context) throws JRException, IOException {
@@ -29,7 +31,9 @@ public class DealerWarehouseReportFiller extends JasperReportFiller<DealerWareho
     @SneakyThrows
     @Override
     public JasperPrint fillReport(DealerWarehouseReportData data, ReportFormat format) {
+        log.info("Filling DealerWarehouseReport, row count: {}, format: {}", data.data().size(), format);
         Map<String, Object> params = new HashMap<>();
+        params.put(REPORT_DATE, Instant.now().toString());
         params.put(REPORT_DATA, new JRBeanCollectionDataSource(data.data()));
         if (format == ReportFormat.XLSX) {
             params.put(JRParameter.IS_IGNORE_PAGINATION, Boolean.TRUE);

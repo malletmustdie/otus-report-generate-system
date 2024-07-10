@@ -5,5 +5,11 @@ version: 0.1.0
 
 dependencies:
   - name: external-data-service
-    version: 0.1.0
+    version: 0.1.1
     repository: "file://../external-data-service/external-data-service-chart"
+  - name: data-generation-service
+    version: 0.1.1
+    repository: "file://../data-generation-service/data-generation-service-chart"
+  - name: report-generator-service
+    version: 0.1.1
+    repository: "file://../report-generator-service/report-generator-service-chart"

@@ -19,6 +19,7 @@ public class DataController {
 
     @GetMapping
     public List<DealerWarehouse> getAll() {
+        log.info("Get DealerWarehouse data from external service");
         return externalClient.getData();
     }
 

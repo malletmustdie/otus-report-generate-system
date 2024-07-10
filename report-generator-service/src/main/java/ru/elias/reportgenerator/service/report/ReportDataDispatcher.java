@@ -14,7 +14,6 @@ public class ReportDataDispatcher {
 
     private final Map<String, DataReportGenerator> dataGenerators;
 
-
     public <R extends ReportParam> ReportData getData(String dataGeneratorName, R request) {
         validateDispatcher(dataGeneratorName);
         return dataGenerators.get(dataGeneratorName).generateData(request);

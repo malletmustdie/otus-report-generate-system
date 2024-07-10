@@ -11,7 +11,7 @@
 
     <groupId>ru.elias</groupId>
     <artifactId>report-generator-service</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <name>report-generator-service</name>
 
     <properties>
@@ -46,6 +46,11 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
+            <version>${japser.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
             <version>${japser.version}</version>
         </dependency>
 

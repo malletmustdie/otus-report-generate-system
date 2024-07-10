@@ -19,7 +19,8 @@ public class DealerWarehouseController {
 
     @GetMapping
     public List<DealerWarehouse> getAll() {
-        return repository.findAll()
+        log.info("Generate DealerWarehouse data");
+        var data = repository.findAll()
                 .stream()
                 .map(entity -> DealerWarehouse.builder()
                         .manufacturer(entity.getManufacturer())
@@ -29,6 +30,8 @@ public class DealerWarehouseController {
                         .price(entity.getPrice())
                         .build())
                 .toList();
+        log.info("DealerWarehouse data '{}' was successfully sent", data);
+        return data;
     }
 
 }

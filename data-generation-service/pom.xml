@@ -11,7 +11,7 @@
 
 	<groupId>ru.elias</groupId>
 	<artifactId>data-generation-service</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<name>data-generation-service</name>
 
 	<properties>
@@ -45,6 +45,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

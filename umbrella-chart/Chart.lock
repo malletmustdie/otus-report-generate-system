@@ -1,6 +1,12 @@
 dependencies:
 - name: external-data-service
   repository: file://../external-data-service/external-data-service-chart
-  version: 0.1.0
-digest: sha256:bc053be47a5cb50fb0764cf89ff0467310e121e165dc13d7543277668b1694c1
-generated: "2024-07-09T13:28:16.091962+03:00"
+  version: 0.1.1
+- name: data-generation-service
+  repository: file://../data-generation-service/data-generation-service-chart
+  version: 0.1.1
+- name: report-generator-service
+  repository: file://../report-generator-service/report-generator-service-chart
+  version: 0.1.1
+digest: sha256:c6ba891a7c2323f9e29539c7d11725fdef7f5d884faae681b544ba79833bc600
+generated: "2024-07-10T08:44:09.844615+03:00"

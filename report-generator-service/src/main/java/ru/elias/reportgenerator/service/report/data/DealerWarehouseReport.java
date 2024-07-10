@@ -16,6 +16,7 @@ public class DealerWarehouseReport implements DataReportGenerator<DealerWarehous
 
     @Override
     public DealerWarehouseReportData generateData(EmptyParam request) {
+        log.info("Generate DealerWarehouse report data");
         return getDealerWarehouseReportData();
     }
 
