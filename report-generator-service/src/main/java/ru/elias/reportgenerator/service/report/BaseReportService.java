@@ -47,9 +47,9 @@ public class BaseReportService {
                         Function.identity()));
     }
 
-    public void generateReport(ReportData report, ReportFormat format) {
+    public String generateReport(ReportData report, ReportFormat format) {
         var reportData = generate(report, format);
-        reportDataService.saveReport(reportData.toByteArray());
+        return reportDataService.saveReport(reportData.toByteArray());
     }
 
     private ByteArrayOutputStream generate(ReportData report, ReportFormat format) {

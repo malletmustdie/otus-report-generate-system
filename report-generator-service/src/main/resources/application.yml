@@ -4,12 +4,16 @@ server:
 spring:
   application:
     name: report-generator-service
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
 
 service:
   data-generation-service:
     base-uri: http://localhost:8084/api/v1/warehouse
   report-data-service:
-    base-uri: http://localhost:8085/api/v1/reports
+    base-uri: http://localhost:8086/reports/upload
 
 management:
   endpoints:
