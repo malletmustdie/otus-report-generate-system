@@ -17,6 +17,7 @@ import net.sf.jasperreports.export.SimpleDocxReportConfiguration;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.springframework.stereotype.Service;
+import ru.elias.reportgenerator.domain.dto.ReportConfig;
 import ru.elias.reportgenerator.domain.report.ReportFormat;
 import ru.elias.reportgenerator.domain.report.data.ReportData;
 import ru.elias.reportgenerator.error.exception.GenerateReportException;
@@ -47,9 +48,9 @@ public class BaseReportService {
                         Function.identity()));
     }
 
-    public String generateReport(ReportData report, ReportFormat format) {
+    public ReportConfig generateReport(ReportData report, ReportFormat format) {
         var reportData = generate(report, format);
-        return reportDataService.saveReport(reportData.toByteArray());
+        return reportDataService.saveReport(reportData.toByteArray(), format);
     }
 
     private ByteArrayOutputStream generate(ReportData report, ReportFormat format) {

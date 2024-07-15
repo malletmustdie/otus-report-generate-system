@@ -13,3 +13,6 @@ dependencies:
   - name: report-generator-service
     version: 0.1.1
     repository: "file://../report-generator-service/report-generator-service-chart"
+  - name: config-control-service
+    version: 0.1.0
+    repository: "file://../config-control-service/config-control-service-chart"

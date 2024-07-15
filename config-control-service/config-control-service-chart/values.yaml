@@ -1,0 +1,25 @@
+replicaCount: 1
+
+image:
+  repository: malletmustdie/config-control-service
+  pullPolicy: Always
+  tag: "0.1.0"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+serviceAccount: config-control-service-user
+
+database:
+  host: postgres-postgresql
+  port: 5432
+  db: config_control_service
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "50m"
+  limits:
+    memory: "1Gi"
+    cpu: "400m"

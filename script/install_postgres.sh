@@ -12,7 +12,8 @@ helm install postgres oci://registry-1.docker.io/bitnamicharts/postgresql \
 sleep 20
 
 # Создать новые базы данных
-#PG_POD_NAME=$(kubectl get pods -l app.kubernetes.io/name=postgresql -n ${NAMESPACE} -o jsonpath='{.items[0].metadata.name}')
-#kubectl exec "${PG_POD_NAME}" -n ${NAMESPACE} \
-#        -- bash -c 'export PGPASSWORD=postgres \
-#                    && psql -U postgres -c "CREATE DATABASE external_data_service;"'
+PG_POD_NAME=$(kubectl get pods -l app.kubernetes.io/name=postgresql -n ${NAMESPACE} -o jsonpath='{.items[0].metadata.name}')
+kubectl exec "${PG_POD_NAME}" -n ${NAMESPACE} \
+        -- bash -c 'export PGPASSWORD=postgres \
+                    && psql -U postgres -c "CREATE DATABASE external_data_service;" \
+                    && psql -U postgres -c "CREATE DATABASE config_control_service;"'

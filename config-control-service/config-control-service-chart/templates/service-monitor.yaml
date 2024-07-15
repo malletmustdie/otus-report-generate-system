@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "_helpers-config-control-service.name" . }}
+  labels:
+    app.kubernetes.io/namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "_helpers-config-control-service.name" . }}
+  endpoints:
+    {{- include "_helpers-config-control-service.service-monitor.endpoints" . | nindent 4 }}

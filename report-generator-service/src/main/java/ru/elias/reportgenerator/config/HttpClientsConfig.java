@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+import ru.elias.reportgenerator.service.client.ConfigControlServiceClient;
 import ru.elias.reportgenerator.service.client.DataServiceClient;
 import ru.elias.reportgenerator.service.client.ReportDataServiceClient;
 
@@ -21,6 +22,9 @@ public class HttpClientsConfig {
 
     @Value("${service.report-data-service.base-uri}")
     private String reportDataServiceUri;
+
+    @Value("${service.config-control-service.base-uri}")
+    private String configControlServiceUri;
 
     @Bean
     public DataServiceClient dataServiceClient(RestClient.Builder restClientBuilder) {
@@ -36,6 +40,14 @@ public class HttpClientsConfig {
                 .baseUrl(reportDataServiceUri)
                 .build();
         return buildDeclarativeRestClient(restClient, ReportDataServiceClient.class);
+    }
+
+    @Bean
+    public ConfigControlServiceClient configControlServiceClient(RestClient.Builder restClientBuilder) {
+        var restClient = restClientBuilder
+                .baseUrl(configControlServiceUri)
+                .build();
+        return buildDeclarativeRestClient(restClient, ConfigControlServiceClient.class);
     }
 
     private <T> T buildDeclarativeRestClient(RestClient restClient, Class<T> targetClass) {
