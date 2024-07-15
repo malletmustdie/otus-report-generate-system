@@ -1,6 +1,6 @@
 #!/bin/bash
 
-chmod +x deploy/create_namespace.sh deploy/install_postgres.sh deploy/install_kafka.sh ./deploy/install_prometheus.sh deploy/install_project.sh
+chmod +x script/create_namespace.sh script/install_postgres.sh script/install_kafka.sh ./script/install_prometheus.sh script/install_project.sh
 
 ## Создание namespace
 #./deploy/create_namespace.sh
@@ -15,4 +15,4 @@ chmod +x deploy/create_namespace.sh deploy/install_postgres.sh deploy/install_ka
 #./deploy/install_prometheus.sh
 
 # Установка основного проекта
-./deploy/install_project.sh
+./script/install_project.sh
