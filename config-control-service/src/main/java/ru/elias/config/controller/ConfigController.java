@@ -25,6 +25,7 @@ public class ConfigController {
 
     @PostMapping
     public void addConfig(@RequestBody @Valid Config config) {
+        log.info("POST: /api/v1/configs - add new config {}", config);
         var entity = ConfigEntity.builder()
                 .reportName(UUID.fromString(config.fileName()))
                 .extension(config.extension())
@@ -35,6 +36,7 @@ public class ConfigController {
 
     @GetMapping
     public List<Config> getConfigs() {
+        log.info("GET: /api/v1/configs - get all configs");
         return configRepository.findAll()
                 .stream()
                 .map(this::toConfig)
@@ -43,6 +45,7 @@ public class ConfigController {
 
     @GetMapping("/{fileName}")
     public Config getConfig(@PathVariable UUID fileName) {
+        log.info("GET: /api/v1/configs - get config by filename {}", fileName);
         return configRepository.findById(fileName)
                 .map(this::toConfig)
                 .orElseThrow(() -> new RuntimeException("Config for file name '%s' not found!".formatted(fileName)));
