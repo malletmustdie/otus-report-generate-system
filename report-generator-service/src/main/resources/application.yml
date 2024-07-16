@@ -8,12 +8,13 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
-
 service:
   data-generation-service:
     base-uri: http://localhost:8084/api/v1/warehouse
   report-data-service:
     base-uri: http://localhost:8086/reports/upload
+  config-control-service:
+    base-uri: http://localhost:8090/api/v1/configs
 
 management:
   endpoints:

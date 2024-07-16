@@ -1,7 +1,4 @@
 dependencies:
-- name: mongodb
-  repository: file://mongodb-chart
-  version: 0.1.0
 - name: external-data-service
   repository: file://../external-data-service/external-data-service-chart
   version: 0.1.1
@@ -11,5 +8,8 @@ dependencies:
 - name: report-generator-service
   repository: file://../report-generator-service/report-generator-service-chart
   version: 0.1.1
-digest: sha256:dcbc36c79d52a01ab4879b7714cff946383eb397d00ce3df8baacc5e0014d521
-generated: "2024-07-11T15:10:33.056391+03:00"
+- name: config-control-service
+  repository: file://../config-control-service/config-control-service-chart
+  version: 0.1.0
+digest: sha256:2acdb9925b00d618155c4bd53fc82db6c7b6bd23f490c4baeb78bd945a4fcfac
+generated: "2024-07-16T16:23:42.574754+03:00"

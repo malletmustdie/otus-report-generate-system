@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.elias.reportgenerator.domain.dto.FileMetaInformation;
+import ru.elias.reportgenerator.domain.dto.ReportConfig;
 import ru.elias.reportgenerator.domain.report.ReportFormat;
 import ru.elias.reportgenerator.domain.report.param.EmptyParam;
 import ru.elias.reportgenerator.service.report.BaseReportService;
@@ -27,10 +27,9 @@ public class ReportController {
 
     @PostMapping("/dealerWarehouseReport")
     @ResponseStatus(HttpStatus.CREATED)
-    public FileMetaInformation getDealerWarehouseReport(@RequestParam ReportFormat format) {
+    public ReportConfig getDealerWarehouseReport(@RequestParam ReportFormat format) {
         var data = dataDispatcher.getData("dealerWarehouseReport", new EmptyParam());
-        var filename = reportService.generateReport(data, format);
-        return new FileMetaInformation(filename, format.getExtension());
+        return reportService.generateReport(data, format);
     }
 
 }

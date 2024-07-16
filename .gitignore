@@ -47,3 +47,7 @@ build/
 /report-generator-service/HELP.md
 /report-generator-service/mvnw
 /report-generator-service/mvnw.cmd
+/config-control-service/.mvn/
+/config-control-service/HELP.md
+/config-control-service/mvnw
+/config-control-service/mvnw.cmd

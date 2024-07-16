@@ -1,6 +1,9 @@
 package ru.elias.reportgenerator.service;
 
+import ru.elias.reportgenerator.domain.dto.ReportConfig;
+import ru.elias.reportgenerator.domain.report.ReportFormat;
+
 public interface ReportDataService {
 
-    String saveReport(byte[] reportData);
+    ReportConfig saveReport(byte[] reportData, ReportFormat format);
 }
