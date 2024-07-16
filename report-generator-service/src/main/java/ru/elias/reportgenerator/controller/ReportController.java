@@ -20,8 +20,6 @@ import ru.elias.reportgenerator.service.report.ReportDataDispatcher;
 @RequiredArgsConstructor
 public class ReportController {
 
-    //private static final String REPORT_NAME = "%s-%s".formatted("dealerWarehouseReport", UUID.randomUUID().toString());
-
     private final ReportDataDispatcher dataDispatcher;
     private final BaseReportService reportService;
 
