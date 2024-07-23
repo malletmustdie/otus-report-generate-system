@@ -44,7 +44,7 @@ public class DeliveryController {
                                   @RequestParam String email) {
         var response = client.getReportByFilename(fileName, format);
         var body = Objects.requireNonNull(response.getBody());
-        emailService.sendEmailWithAttachment(email, "Your Report", "Please find the attached report.", body, "report.pdf");
+        emailService.sendEmailWithAttachment(email, "[report-generate-system] Your Report", "Please check the attached report.", body, "report-%s".formatted(fileName.concat(format.getExtension())));
     }
 
 }

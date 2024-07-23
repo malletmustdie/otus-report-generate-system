@@ -14,8 +14,11 @@ dependencies:
 - name: report-data-service
   repository: file://../report-data-service/report-data-service-chart
   version: 0.1.0
+- name: report-delivery-service
+  repository: file://../report-delivery-service/report-delivery-service-chart
+  version: 0.1.0
 - name: config-control-service
   repository: file://../config-control-service/config-control-service-chart
   version: 0.1.0
-digest: sha256:b00e9b83576cd569af98bee10a13e62a37792c3cf110d2804a1ade2a3c575414
-generated: "2024-07-16T17:22:11.400185+03:00"
+digest: sha256:ccfafdfcff283d797b4f3f5e01f1635e821fb96858bcb6179a1a5191b7b33ef0
+generated: "2024-07-23T17:33:37.957585+03:00"
