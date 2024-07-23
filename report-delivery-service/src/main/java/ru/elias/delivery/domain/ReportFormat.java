@@ -1,4 +1,4 @@
-package ru.elias.gateway.domain.dto;
+package ru.elias.delivery.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,14 +14,5 @@ public enum ReportFormat {
     private final String mediaType;
 
     private final String extension;
-
-    public static ReportFormat getFormat(String extension) {
-        return switch (extension) {
-            case ".pdf" -> PDF;
-            case ".xlsx" -> XLSX;
-            case ".docx" -> DOCX;
-            default -> throw new IllegalArgumentException("Unexpected extension");
-        };
-    }
 
 }

@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 8082
 
 spring:
   application:
@@ -8,7 +8,7 @@ spring:
 data:
   service:
     external-service:
-      base-uri: http://localhost:8089/api/v1/data
+      base-uri: http://localhost:9191/api/v1/data
 
 logging:
   level:

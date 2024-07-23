@@ -9,6 +9,7 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import ru.elias.gateway.service.client.ConfigControlServiceClient;
+import ru.elias.gateway.service.client.ReportDeliveryServiceClient;
 import ru.elias.gateway.service.client.ReportGeneratorServiceClient;
 
 @Slf4j
@@ -21,6 +22,9 @@ public class HttpClientsConfig {
 
     @Value("${services.report-generator-service.base-uri}")
     private String reportGeneratorService;
+
+    @Value("${services.report-delivery-service.base-uri}")
+    private String reportDeliveryService;
 
     @Bean
     public ConfigControlServiceClient configControlServiceClient(RestClient.Builder restClientBuilder) {
@@ -36,6 +40,14 @@ public class HttpClientsConfig {
                 .baseUrl(reportGeneratorService)
                 .build();
         return buildDeclarativeRestClient(restClient, ReportGeneratorServiceClient.class);
+    }
+
+    @Bean
+    public ReportDeliveryServiceClient reportDeliveryServiceClient(RestClient.Builder restClientBuilder) {
+        var restClient = restClientBuilder
+                .baseUrl(reportDeliveryService)
+                .build();
+        return buildDeclarativeRestClient(restClient, ReportDeliveryServiceClient.class);
     }
 
     private <T> T buildDeclarativeRestClient(RestClient restClient, Class<T> targetClass) {

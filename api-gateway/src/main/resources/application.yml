@@ -7,9 +7,11 @@ spring:
 
 services:
   config-control-service:
-    base-uri: http://localhost:8090/api/v1/configs
+    base-uri: http://localhost:8084/api/v1/configs
   report-generator-service:
-    base-uri: http://localhost:8083/api/v1/reports
+    base-uri: http://localhost:8081/api/v1/reports
+  report-delivery-service:
+    base-uri: http://localhost:8085/api/v1/delivery
 
 management:
   endpoints:
