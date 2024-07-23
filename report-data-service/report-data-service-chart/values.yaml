@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: malletmustdie/report-data-service
+  pullPolicy: Always
+  tag: "0.1.0"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+minio:
+  url: minio.dev.svc.cluster.local:9000
+  bucketName: reports
+
+serviceAccount: report-data-service-user
+
+data:
+  service:
+    dataGenerationService:
+      baseUri: http://data-generation-service:8080/api/v1/warehouse
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "50m"
+  limits:
+    memory: "1Gi"
+    cpu: "400m"

@@ -40,35 +40,46 @@ public class BaseReportService {
      * C-tor.
      */
     public BaseReportService(List<JasperReportFiller<?>> jasperReportFillers, ReportDataService reportDataService) {
+        log.info("Initializing BaseReportService...");
         this.globalJasperConfig();
         this.reportDataService = reportDataService;
         this.reportFillersMap = jasperReportFillers.stream()
                 .collect(Collectors.toMap(
                         JasperReportFiller::getReportType,
                         Function.identity()));
+        log.info("BaseReportService initialized with {} report fillers.", jasperReportFillers.size());
     }
 
     public ReportConfig generateReport(ReportData report, ReportFormat format) {
+        log.info("Generating report for format: {}", format);
         var reportData = generate(report, format);
+        log.info("Report generated successfully, saving report...");
         return reportDataService.saveReport(reportData.toByteArray(), format);
     }
 
     private ByteArrayOutputStream generate(ReportData report, ReportFormat format) {
+        log.debug("Generating ByteArrayOutputStream for report: {}", report.getClass().getSimpleName());
         var os = new ByteArrayOutputStream();
         var jasperPrint = fillReport(report, format);
+        log.debug("Filled report for format: {}", format);
         exportReportToFormat(jasperPrint, os, format);
+        log.debug("Report exported to format: {}", format);
         return os;
     }
 
     private <T extends ReportData> JasperPrint fillReport(T report, ReportFormat format) {
+        log.debug("Filling report for type: {}", report.getClass().getName());
         JasperReportFiller<T> filler = (JasperReportFiller<T>) reportFillersMap.get(report.getClass());
         if (filler == null) {
+            log.error("No filler found for report type: {}", report.getClass().getName());
             throw new IllegalArgumentException("No filler found for report type: " + report.getClass().getName());
         }
+        log.debug("Filler found for report type: {}", report.getClass().getName());
         return filler.fillReport(report, format);
     }
 
     private void exportReportToFormat(JasperPrint jasperPrint, OutputStream outputStream, ReportFormat format) {
+        log.debug("Exporting report to format: {}", format);
         try (outputStream) {
             var exporter = switch (format) {
                 case PDF -> new JRPdfExporter();
@@ -82,19 +93,24 @@ public class BaseReportService {
             exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
             exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
             exporter.exportReport();
+            log.info("Report exported successfully to format: {}", format);
         } catch (Exception e) {
+            log.error("Error exporting report to format: {}", format, e);
             throw new GenerateReportException(UNSUCCESSFUL_REPORT_EXPORT);
         }
     }
 
     private SimpleDocxReportConfiguration getDocxConfig() {
+        log.debug("Getting DOCX configuration...");
         SimpleDocxReportConfiguration config = new SimpleDocxReportConfiguration();
         config.setFramesAsNestedTables(true);
         return config;
     }
 
     private void globalJasperConfig() {
+        log.info("Setting global JasperReports configuration...");
         JRPropertiesUtil.getInstance(DefaultJasperReportsContext.getInstance()).setProperty(LOCALE_PROPERTY_NAME, "ru_RU");
     }
 
 }
+

@@ -22,16 +22,19 @@ public class ReportDataServiceImpl implements ReportDataService {
 
     @Override
     public ReportConfig saveReport(byte[] reportData, ReportFormat format) {
-        log.info("Try to save reportData");
+        log.info("Saving report with format: {}", format);
         var reportFile = new ReportMultipartFile(reportData, UUID.randomUUID().toString(), MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        log.debug("ReportMultipartFile created with UUID: {}", reportFile.getName());
         var fileName = reportDataServiceClient.saveReport(reportFile);
+        log.info("Report saved with file name: {}", fileName);
         return saveConfig(fileName, format);
     }
 
     private ReportConfig saveConfig(String fileName, ReportFormat format) {
+        log.info("Saving report configuration for file: {}", fileName);
         var config = new ReportConfig(fileName, format.getExtension());
         configControlServiceClient.addConfig(config);
+        log.info("Report configuration saved: {}", config);
         return config;
     }
-
 }

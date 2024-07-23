@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "_helpers-api-gateway.name" . }}
+data:
+  application.yml: |
+    server:
+      port: {{ .Values.service.port }}
+    spring:
+      application:
+        name: {{ include "_helpers-api-gateway.name" . }}
+    service:
+      config-control-service:
+        base-uri: {{ .Values.data.service.configControlService.baseUri }}
+      report-generator-service:
+        bae-uri: {{ .Values.data.service.reportGeneratorService.baseUri }}
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: health, metrics, prometheus
+      metrics:
+        distribution:
+          percentiles:
+            http.server.requests: 0.99, 0.95, 0.9, 0.7, 0.5
+          percentiles-histogram:
+            http.server.requests: true
+          minimum-expected-value:
+            http.server.requests: 100ms
+          maximum-expected-value:
+            http.server.requests: 10s
+          slo:
+            http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
+    logging:
+      level:
+        ru.elias.gateway: DEBUG

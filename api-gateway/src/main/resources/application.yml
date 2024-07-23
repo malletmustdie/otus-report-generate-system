@@ -1,15 +1,15 @@
 server:
-  port: 8086
+  port: 8080
 
 spring:
   application:
-    name: report-data-service
+    name: api-gateway
 
-minio:
-  url: http://localhost:9000
-  access-key: admin
-  secret-key: ZpXpvcoxO6
-  bucket-name: reports
+services:
+  config-control-service:
+    base-uri: http://localhost:8090/api/v1/configs
+  report-generator-service:
+    base-uri: http://localhost:8083/api/v1/reports
 
 management:
   endpoints:
@@ -28,3 +28,7 @@ management:
         http.server.requests: 10s
       slo:
         http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
+
+logging:
+  level:
+    ru.elias.gateway: DEBUG
