@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.elias.gateway.domain.dto.Config;
 import ru.elias.gateway.domain.dto.ReportFormat;
-import ru.elias.gateway.service.client.ReportGeneratorServiceClient;
+import ru.elias.gateway.client.ReportGeneratorServiceClient;
 
 @Slf4j
 @RestController

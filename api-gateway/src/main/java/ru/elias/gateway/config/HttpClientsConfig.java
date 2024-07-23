@@ -1,5 +1,6 @@
 package ru.elias.gateway.config;
 
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,8 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
-import ru.elias.gateway.service.client.ConfigControlServiceClient;
-import ru.elias.gateway.service.client.ReportGeneratorServiceClient;
+import ru.elias.gateway.client.ConfigControlServiceClient;
+import ru.elias.gateway.client.ReportDeliveryServiceClient;
+import ru.elias.gateway.client.ReportGeneratorServiceClient;
 
 @Slf4j
 @Configuration
@@ -20,26 +22,33 @@ public class HttpClientsConfig {
     private String configControlServiceUri;
 
     @Value("${services.report-generator-service.base-uri}")
-    private String reportGeneratorService;
+    private String reportGeneratorServiceUri;
+
+    @Value("${services.report-delivery-service.base-uri}")
+    private String reportDeliveryServiceUri;
 
     @Bean
     public ConfigControlServiceClient configControlServiceClient(RestClient.Builder restClientBuilder) {
-        var restClient = restClientBuilder
-                .baseUrl(configControlServiceUri)
-                .build();
-        return buildDeclarativeRestClient(restClient, ConfigControlServiceClient.class);
+        var builder = restClientBuilder.baseUrl(configControlServiceUri);
+        return createClient(builder, ConfigControlServiceClient.class);
     }
 
     @Bean
     public ReportGeneratorServiceClient reportGeneratorServiceClient(RestClient.Builder restClientBuilder) {
-        var restClient = restClientBuilder
-                .baseUrl(reportGeneratorService)
-                .build();
-        return buildDeclarativeRestClient(restClient, ReportGeneratorServiceClient.class);
+        var builder = restClientBuilder
+                .baseUrl(reportGeneratorServiceUri)
+                .defaultHeader("Idempotency-Key", UUID.randomUUID().toString());
+        return createClient(builder, ReportGeneratorServiceClient.class);
     }
 
-    private <T> T buildDeclarativeRestClient(RestClient restClient, Class<T> targetClass) {
-        var restClientAdapter = RestClientAdapter.create(restClient);
+    @Bean
+    public ReportDeliveryServiceClient reportDeliveryServiceClient(RestClient.Builder restClientBuilder) {
+        var builder = restClientBuilder.baseUrl(reportDeliveryServiceUri);
+        return createClient(builder, ReportDeliveryServiceClient.class);
+    }
+
+    private <T> T createClient(RestClient.Builder builder, Class<T> targetClass) {
+        var restClientAdapter = RestClientAdapter.create(builder.build());
         var factory = HttpServiceProxyFactory.builderFor(restClientAdapter).build();
         return factory.createClient(targetClass);
     }

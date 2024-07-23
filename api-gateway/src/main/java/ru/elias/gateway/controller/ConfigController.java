@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.elias.gateway.domain.dto.Config;
-import ru.elias.gateway.service.client.ConfigControlServiceClient;
+import ru.elias.gateway.client.ConfigControlServiceClient;
 
 @Slf4j
 @RestController

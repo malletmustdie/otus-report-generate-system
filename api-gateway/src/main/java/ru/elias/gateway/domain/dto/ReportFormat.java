@@ -15,4 +15,13 @@ public enum ReportFormat {
 
     private final String extension;
 
+    public static ReportFormat getFormat(String extension) {
+        return switch (extension) {
+            case ".pdf" -> PDF;
+            case ".xlsx" -> XLSX;
+            case ".docx" -> DOCX;
+            default -> throw new IllegalArgumentException("Unexpected extension");
+        };
+    }
+
 }

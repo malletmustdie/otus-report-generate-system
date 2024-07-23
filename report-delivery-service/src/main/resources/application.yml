@@ -1,0 +1,23 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: report-delivery-service
+
+mail:
+  host: smtp.gmail.com
+  port: 587
+  username: mallet322@gmail.com
+  password: etmw lklq vymu tlmw
+  properties:
+    mail:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+      debug: true
+
+services:
+  report-data-service:
+    base-uri: http://localhost:8083/reports
