@@ -6,14 +6,30 @@ data:
   application.yml: |
     server:
       port: {{ .Values.service.port }}
+
     spring:
       application:
         name: {{ include "_helpers-api-gateway.name" . }}
+      security:
+        oauth2:
+          resourceserver:
+            jwt:
+              issuer-uri: ${keycloak.auth-url}/realms/${keycloak.realm}
+
     service:
       config-control-service:
         base-uri: {{ .Values.data.service.configControlService.baseUri }}
       report-generator-service:
         bae-uri: {{ .Values.data.service.reportGeneratorService.baseUri }}
+
+    keycloak:
+      auth-url: {{ .Values.keycloak.authUrl }}
+      realm: {{ .Values.keycloak.realm }}
+      token:
+        url: ${keycloak.auth-url}/realms/${keycloak.realm}/protocol/openid-connect/token
+      admin:
+        url: ${keycloak.auth-url}/admin/realms/${keycloak.realm}/users
+
     management:
       endpoints:
         web:
@@ -31,6 +47,7 @@ data:
             http.server.requests: 10s
           slo:
             http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
+
     logging:
       level:
         ru.elias.gateway: DEBUG

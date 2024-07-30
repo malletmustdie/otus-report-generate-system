@@ -5,6 +5,12 @@ spring:
   application:
     name: api-gateway
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.auth-url}/realms/${keycloak.realm}
+
 services:
   config-control-service:
     base-uri: http://localhost:8084/api/v1/configs
@@ -12,6 +18,18 @@ services:
     base-uri: http://localhost:8081/api/v1/reports
   report-delivery-service:
     base-uri: http://localhost:8085/api/v1/delivery
+
+keycloak:
+  auth-url: http://localhost:9191/auth
+  realm: health-realm
+  token:
+    url: ${keycloak.auth-url}/realms/${keycloak.realm}/protocol/openid-connect/token
+    client: health
+    client-secret: lOLb22HxdIFibLOCLzUQpAFQbeXgql72
+  admin:
+    url: ${keycloak.auth-url}/admin/realms/${keycloak.realm}/users
+    client: admin-cli
+    client-secret: fd3dPFvHWkA1hP5DGkLhgQTSW3X2EG8k
 
 management:
   endpoints:
@@ -30,6 +48,10 @@ management:
         http.server.requests: 10s
       slo:
         http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
+
+springdoc:
+  swagger-ui:
+    path: /docs
 
 logging:
   level:

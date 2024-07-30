@@ -1,5 +1,6 @@
 package ru.elias.reportgenerator.service.impl;
 
+import com.github.benmanes.caffeine.cache.Cache;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,15 +20,18 @@ public class ReportDataServiceImpl implements ReportDataService {
 
     private final ReportDataServiceClient reportDataServiceClient;
     private final ConfigControlServiceClient configControlServiceClient;
+    private final Cache<String, Boolean> idempotencyCache;
 
     @Override
-    public ReportConfig saveReport(byte[] reportData, ReportFormat format) {
+    public ReportConfig saveReport(String idempotencyKey, byte[] reportData, ReportFormat format) {
         log.info("Saving report with format: {}", format);
         var reportFile = new ReportMultipartFile(reportData, UUID.randomUUID().toString(), MediaType.APPLICATION_OCTET_STREAM_VALUE);
         log.debug("ReportMultipartFile created with UUID: {}", reportFile.getName());
         var fileName = reportDataServiceClient.saveReport(reportFile);
         log.info("Report saved with file name: {}", fileName);
-        return saveConfig(fileName, format);
+        var config = saveConfig(fileName, format);
+        idempotencyCache.put(idempotencyKey, true);
+        return config;
     }
 
     private ReportConfig saveConfig(String fileName, ReportFormat format) {

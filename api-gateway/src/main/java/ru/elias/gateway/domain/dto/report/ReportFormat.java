@@ -1,4 +1,4 @@
-package ru.elias.gateway.domain.dto;
+package ru.elias.gateway.domain.dto.report;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

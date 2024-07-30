@@ -1,6 +1,5 @@
 package ru.elias.gateway.config;
 
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +11,7 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import ru.elias.gateway.client.ConfigControlServiceClient;
 import ru.elias.gateway.client.ReportDeliveryServiceClient;
 import ru.elias.gateway.client.ReportGeneratorServiceClient;
+import ru.elias.gateway.config.interceptor.ClientHeadersRequestInterceptor;
 
 @Slf4j
 @Configuration
@@ -28,6 +28,16 @@ public class HttpClientsConfig {
     private String reportDeliveryServiceUri;
 
     @Bean
+    public ClientHeadersRequestInterceptor clientHeadersRequestInterceptor() {
+        return new ClientHeadersRequestInterceptor();
+    }
+
+    @Bean
+    public RestClient restClient(RestClient.Builder restClientBuilder) {
+        return restClientBuilder.build();
+    }
+
+    @Bean
     public ConfigControlServiceClient configControlServiceClient(RestClient.Builder restClientBuilder) {
         var builder = restClientBuilder.baseUrl(configControlServiceUri);
         return createClient(builder, ConfigControlServiceClient.class);
@@ -37,7 +47,7 @@ public class HttpClientsConfig {
     public ReportGeneratorServiceClient reportGeneratorServiceClient(RestClient.Builder restClientBuilder) {
         var builder = restClientBuilder
                 .baseUrl(reportGeneratorServiceUri)
-                .defaultHeader("Idempotency-Key", UUID.randomUUID().toString());
+                .requestInterceptor(clientHeadersRequestInterceptor());
         return createClient(builder, ReportGeneratorServiceClient.class);
     }
 
