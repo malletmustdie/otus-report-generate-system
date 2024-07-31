@@ -1,4 +1,4 @@
-package ru.elias.gateway.client;
+package ru.elias.gateway.service.client;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;

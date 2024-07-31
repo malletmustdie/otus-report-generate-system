@@ -28,7 +28,7 @@ public class ReportController {
     @ResponseStatus(HttpStatus.CREATED)
     public ReportConfig getDealerWarehouseReport(@RequestHeader("Idempotency-Key") String idempotencyKey, @RequestParam ReportFormat format) {
         log.info("POST: /dealerWarehouseReport - try to create dealer warehouse report, format {}", format);
-        var data = dataDispatcher.getData("dealerWarehouseReport", idempotencyKey, new EmptyParam());
+        var data = dataDispatcher.getData(idempotencyKey, "dealerWarehouseReport", new EmptyParam());
         return reportService.generateReport(idempotencyKey, data, format);
     }
 

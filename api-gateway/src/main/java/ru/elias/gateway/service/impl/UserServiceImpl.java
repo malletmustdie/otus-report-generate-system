@@ -3,7 +3,7 @@ package ru.elias.gateway.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.elias.gateway.client.KeycloakClient;
+import ru.elias.gateway.service.client.KeycloakClient;
 import ru.elias.gateway.domain.dto.auth.request.AccessTokenRequest;
 import ru.elias.gateway.domain.dto.auth.request.RefreshAccessTokenRequest;
 import ru.elias.gateway.domain.dto.auth.response.RefreshTokenResponse;

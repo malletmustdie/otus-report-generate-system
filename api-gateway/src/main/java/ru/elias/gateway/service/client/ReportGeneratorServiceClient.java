@@ -1,4 +1,4 @@
-package ru.elias.gateway.client;
+package ru.elias.gateway.service.client;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.HttpExchange;

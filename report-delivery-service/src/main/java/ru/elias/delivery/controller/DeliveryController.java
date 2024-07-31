@@ -1,6 +1,5 @@
 package ru.elias.delivery.controller;
 
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.elias.delivery.domain.ReportFormat;
+import ru.elias.delivery.error.exception.ReportNotFoundException;
 import ru.elias.delivery.service.EmailService;
 import ru.elias.delivery.service.client.ReportDataServiceClient;
 
@@ -29,8 +29,10 @@ public class DeliveryController {
     @GetMapping("/download/{fileName}")
     public ResponseEntity<ByteArrayResource> downloadReport(@PathVariable String fileName,
                                                             @RequestParam ReportFormat format) {
+        log.info("Downloading report: fileName={}, format={}", fileName, format);
         var response = client.getReportByFilename(fileName, format);
-        var body = Objects.requireNonNull(response.getBody());
+        var body = validateReportBody(response, fileName, format);
+        log.info("Successfully downloaded report: fileName={}, format={}", fileName, format);
         return ResponseEntity.ok()
                 .headers(response.getHeaders())
                 .contentLength(body.length)
@@ -42,9 +44,19 @@ public class DeliveryController {
     public void sendReportByEmail(@PathVariable String fileName,
                                   @RequestParam ReportFormat format,
                                   @RequestParam String email) {
+        log.info("Sending report by email: fileName={}, format={}, email={}", fileName, format, email);
         var response = client.getReportByFilename(fileName, format);
-        var body = Objects.requireNonNull(response.getBody());
-        emailService.sendEmailWithAttachment(email, "[report-generate-system] Your Report", "Please check the attached report.", body, "report-%s".formatted(fileName.concat(format.getExtension())));
+        var body = validateReportBody(response, fileName, format);
+        emailService.sendEmailWithAttachment(email, body, fileName.concat(format.getExtension()));
+    }
+
+    private byte[] validateReportBody(ResponseEntity<byte[]> response, String fileName, ReportFormat format) {
+        var body = response.getBody();
+        if (body == null) {
+            log.error("Failed to download report: body is null for fileName={}, format={}", fileName, format);
+            throw new ReportNotFoundException("Failed to download report, report not found");
+        }
+        return body;
     }
 
 }

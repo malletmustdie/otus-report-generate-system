@@ -1,4 +1,4 @@
-package ru.elias.gateway.client;
+package ru.elias.gateway.service.client;
 
 import ru.elias.gateway.domain.dto.auth.request.AccessTokenRequest;
 import ru.elias.gateway.domain.dto.auth.request.RefreshAccessTokenRequest;

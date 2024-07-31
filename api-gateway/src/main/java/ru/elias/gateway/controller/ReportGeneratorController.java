@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.elias.gateway.client.ReportGeneratorServiceClient;
+import ru.elias.gateway.service.client.ReportGeneratorServiceClient;
 import ru.elias.gateway.domain.dto.report.Config;
 import ru.elias.gateway.domain.dto.report.ReportFormat;
 

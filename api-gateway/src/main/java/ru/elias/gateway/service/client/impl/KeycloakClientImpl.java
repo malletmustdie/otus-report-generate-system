@@ -1,4 +1,4 @@
-package ru.elias.gateway.client.impl;
+package ru.elias.gateway.service.client.impl;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestClient;
-import ru.elias.gateway.client.KeycloakClient;
+import ru.elias.gateway.service.client.KeycloakClient;
 import ru.elias.gateway.config.properties.KeycloakProperties;
 import ru.elias.gateway.domain.dto.auth.request.AccessTokenRequest;
 import ru.elias.gateway.domain.dto.auth.request.RefreshAccessTokenRequest;

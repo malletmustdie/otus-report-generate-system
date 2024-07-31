@@ -17,6 +17,9 @@ mail:
         starttls:
           enable: true
       debug: true
+  subject: "[report-generate-system] Your Report"
+  text: "Please check the attached report."
+  attachment-name: "report-%s"
 
 services:
   report-data-service:

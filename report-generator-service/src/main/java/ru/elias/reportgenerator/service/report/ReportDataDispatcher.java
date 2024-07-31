@@ -20,8 +20,12 @@ public class ReportDataDispatcher {
     private final Cache<String, Boolean> idempotencyCache;
 
     public <R extends ReportParam> ReportData getData(String idempotencyKey, String dataGeneratorName, R request) {
+        log.info("Request to generate report '{}' with idempotency key '{}'", dataGeneratorName, idempotencyKey);
         validate(idempotencyKey, dataGeneratorName);
-        return dataGenerators.get(dataGeneratorName).generateData(request);
+        log.info("Generating report '{}' with idempotency key '{}'", dataGeneratorName, idempotencyKey);
+        ReportData reportData = dataGenerators.get(dataGeneratorName).generateData(request);
+        log.info("Report '{}' with idempotency key '{}' generated successfully", dataGeneratorName, idempotencyKey);
+        return reportData;
     }
 
     private void validate(String idempotencyKey, String dataGeneratorName) {
@@ -33,6 +37,7 @@ public class ReportDataDispatcher {
             log.error("Report {} not found", dataGeneratorName);
             throw new ReportNotFoundException("Report '%s' not found".formatted(dataGeneratorName));
         }
+        log.info("Validation passed for report '{}' with idempotency key '{}'", dataGeneratorName, idempotencyKey);
     }
 
 }

@@ -1,4 +1,4 @@
-package ru.elias.gateway.client;
+package ru.elias.gateway.service.client;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;

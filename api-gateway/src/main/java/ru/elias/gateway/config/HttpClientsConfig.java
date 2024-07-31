@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
-import ru.elias.gateway.client.ConfigControlServiceClient;
-import ru.elias.gateway.client.ReportDeliveryServiceClient;
-import ru.elias.gateway.client.ReportGeneratorServiceClient;
+import ru.elias.gateway.service.client.ConfigControlServiceClient;
+import ru.elias.gateway.service.client.ReportDeliveryServiceClient;
+import ru.elias.gateway.service.client.ReportGeneratorServiceClient;
 import ru.elias.gateway.config.interceptor.ClientHeadersRequestInterceptor;
 
 @Slf4j

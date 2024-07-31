@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.elias.gateway.client.ConfigControlServiceClient;
-import ru.elias.gateway.client.ReportDeliveryServiceClient;
+import ru.elias.gateway.service.client.ConfigControlServiceClient;
+import ru.elias.gateway.service.client.ReportDeliveryServiceClient;
 import ru.elias.gateway.domain.dto.report.ReportFormat;
 
 @Tag(name = "Operations about report delivery")

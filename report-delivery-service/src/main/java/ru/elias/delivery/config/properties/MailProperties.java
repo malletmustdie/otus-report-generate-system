@@ -10,5 +10,8 @@ public record MailProperties(
         int port,
         String username,
         String password,
-        Map<String, String> properties) {}
-
+        Map<String, String> properties,
+        String subject,
+        String text,
+        String attachmentName) {
+}
