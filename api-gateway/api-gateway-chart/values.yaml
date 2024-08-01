@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: malletmustdie/api-gateway
   pullPolicy: Always
-  tag: "0.1.2"
+  tag: "0.1.5"
 
 service:
   type: ClusterIP
@@ -12,16 +12,16 @@ service:
 serviceAccount: api-gateway-user
 
 data:
-  service:
+  services:
     configControlService:
       baseUri: http://config-control-service:8080/api/v1/configs
     reportGeneratorService:
       baseUri: http://report-generator-service:8080/api/v1/reports
     reportDeliveryService:
-      base-uri: http://report-delivery-service:8080/api/v1/delivery
+      baseUri: http://report-delivery-service:8080/api/v1/delivery
 
 keycloak:
-  authUrl: http://keycloak-keycloakx-http:8080/auth
+  authUrl: http://keycloak-keycloakx-http:80/auth
   realm: health-realm
 
 resources:

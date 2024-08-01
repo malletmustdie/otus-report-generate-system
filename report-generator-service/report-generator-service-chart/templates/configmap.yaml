@@ -12,6 +12,10 @@ data:
     service:
       data-generation-service:
         base-uri: {{ .Values.data.service.dataGenerationService.baseUri }}
+      report-data-service:
+        base-uri: {{ .Values.data.service.reportDataService.baseUri }}
+      config-control-service:
+        base-uri: {{ .Values.data.service.configControlService.baseUri }}
     management:
       endpoints:
         web:

@@ -29,5 +29,7 @@ spec:
             {{ toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             {{- include "_helpers-api-gateway.volume-mounts.application-yml" . | nindent 12 }}
+            {{- include "_helpers-api-gateway.volume-mounts.secret-yml" . | nindent 12 }}
       volumes:
         {{- include "_helpers-api-gateway.volumes.application-yml" . | nindent 12 }}
+        {{- include "_helpers-api-gateway.volumes.secret-yml" . | nindent 12 }}

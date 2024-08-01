@@ -48,6 +48,21 @@ Volumes
         path: application.yml
 {{- end -}}
 
+{{- define "_helpers-api-gateway.volume-mounts.secret-yml" -}}
+- name: {{ include "_helpers-api-gateway.name" . }}-secret
+  mountPath: /tmp/secret/secret.yml
+  subPath: secret.yml
+{{- end -}}
+
+{{- define "_helpers-api-gateway.volumes.secret-yml" -}}
+- name: {{ include "_helpers-api-gateway.name" . }}-secret
+  secret:
+    secretName: {{ include "_helpers-api-gateway.name" . }}
+    items:
+      - key: secret.yml
+        path: secret.yml
+{{- end -}}
+
 {{- define "_helpers-api-gateway.service-monitor.endpoints" -}}
 - port: http
   path: /actuator/prometheus

@@ -19,9 +19,12 @@ data:
             starttls:
               enable: true
           debug: true
-    service:
+      subject: {{ .Values.mail.subject | quote }}
+      text: {{ .Values.mail.text | quote }}
+      attachment-name: {{ .Values.mail.attachmentName | quote }}
+    services:
       report-data-service:
-        bae-uri: {{ .Values.services.reportDataService.baseUri }}
+        base-uri: {{ .Values.services.reportDataService.baseUri }}
     management:
       endpoints:
         web:

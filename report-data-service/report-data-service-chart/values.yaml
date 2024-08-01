@@ -3,14 +3,14 @@ replicaCount: 1
 image:
   repository: malletmustdie/report-data-service
   pullPolicy: Always
-  tag: "0.1.1"
+  tag: "0.1.4"
 
 service:
   type: ClusterIP
   port: 8080
 
 minio:
-  url: minio.dev.svc.cluster.local:9000
+  url: http://minio.dev.svc.cluster.local:9000
   bucketName: reports
 
 serviceAccount: report-data-service-user

@@ -14,13 +14,15 @@ data:
         oauth2:
           resourceserver:
             jwt:
-              issuer-uri: ${keycloak.auth-url}/realms/${keycloak.realm}
+              issuer-uri: http://keycloak-keycloakx-http/auth/realms/health-realm
 
-    service:
+    services:
       config-control-service:
-        base-uri: {{ .Values.data.service.configControlService.baseUri }}
+        base-uri: {{ .Values.data.services.configControlService.baseUri }}
       report-generator-service:
-        bae-uri: {{ .Values.data.service.reportGeneratorService.baseUri }}
+        base-uri: {{ .Values.data.services.reportGeneratorService.baseUri }}
+      report-delivery-service:
+        base-uri: {{ .Values.data.services.reportDeliveryService.baseUri }}
 
     keycloak:
       auth-url: {{ .Values.keycloak.authUrl }}
@@ -47,6 +49,10 @@ data:
             http.server.requests: 10s
           slo:
             http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
+
+    springdoc:
+      swagger-ui:
+        path: /docs
 
     logging:
       level:

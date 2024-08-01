@@ -48,6 +48,21 @@ Volumes
         path: application.yml
 {{- end -}}
 
+{{- define "_helpers-report-delivery-service.volume-mounts.secret-yml" -}}
+- name: {{ include "_helpers-report-delivery-service.name" . }}-secret
+  mountPath: /tmp/secret/secret.yml
+  subPath: secret.yml
+{{- end -}}
+
+{{- define "_helpers-report-delivery-service.volumes.secret-yml" -}}
+- name: {{ include "_helpers-report-delivery-service.name" . }}-secret
+  secret:
+    secretName: {{ include "_helpers-report-delivery-service.name" . }}
+    items:
+      - key: secret.yml
+        path: secret.yml
+{{- end -}}
+
 {{- define "_helpers-report-delivery-service.service-monitor.endpoints" -}}
 - port: http
   path: /actuator/prometheus

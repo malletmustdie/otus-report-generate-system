@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: malletmustdie/report-delivery-service
   pullPolicy: Always
-  tag: "0.1.1"
+  tag: "0.1.4"
 
 service:
   type: ClusterIP
@@ -25,6 +25,9 @@ mail:
         starttls:
           enable: true
       debug: true
+  subject: "[report-generate-system] Your Report"
+  text: "Please check the attached report."
+  attachmentName: "report-%s"
 
 resources:
   requests:

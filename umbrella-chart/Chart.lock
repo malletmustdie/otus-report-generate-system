@@ -1,24 +1,24 @@
 dependencies:
 - name: api-gateway
   repository: file://../api-gateway/api-gateway-chart
-  version: 0.1.1
+  version: 0.1.5
 - name: external-data-service
   repository: file://../external-data-service/external-data-service-chart
-  version: 0.1.1
+  version: 0.1.2
 - name: data-generation-service
   repository: file://../data-generation-service/data-generation-service-chart
-  version: 0.1.1
+  version: 0.1.2
 - name: report-generator-service
   repository: file://../report-generator-service/report-generator-service-chart
-  version: 0.1.2
+  version: 0.1.4
 - name: report-data-service
   repository: file://../report-data-service/report-data-service-chart
-  version: 0.1.1
+  version: 0.1.5
 - name: report-delivery-service
   repository: file://../report-delivery-service/report-delivery-service-chart
-  version: 0.1.1
+  version: 0.1.4
 - name: config-control-service
   repository: file://../config-control-service/config-control-service-chart
-  version: 0.1.1
-digest: sha256:104fb34de23467b2da8f7f7a68c31e483204d01a7c01599427c40a81dd24cf72
-generated: "2024-07-24T12:48:17.359624+03:00"
+  version: 0.1.2
+digest: sha256:1f99a430095be35ab3cf4be3b98a063ce01dd706e232974f76a033debcab3cc9
+generated: "2024-08-01T16:40:44.534183+03:00"

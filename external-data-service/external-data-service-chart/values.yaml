@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: malletmustdie/external-data-service
   pullPolicy: Always
-  tag: "0.1.1"
+  tag: "0.1.2"
 
 service:
   type: ClusterIP

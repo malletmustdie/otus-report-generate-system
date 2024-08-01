@@ -11,7 +11,7 @@
 
 	<groupId>ru.elias</groupId>
 	<artifactId>data-generation-service</artifactId>
-	<version>0.1.1</version>
+	<version>0.1.2</version>
 	<name>data-generation-service</name>
 
 	<properties>

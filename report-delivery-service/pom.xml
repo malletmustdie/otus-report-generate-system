@@ -12,7 +12,7 @@
 
     <groupId>ru.elias</groupId>
     <artifactId>report-delivery-service</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <name>report-delivery-service</name>
     <description>report-delivery-service</description>
 

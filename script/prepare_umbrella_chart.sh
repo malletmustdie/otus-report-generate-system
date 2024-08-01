@@ -5,7 +5,7 @@ NAMESPACE=dev
 
 cd ..
 
+cd ${PROJECT_NAME}-chart
+
 # Установка или обновление основного проекта
-helm upgrade report-generate-service ./${PROJECT_NAME}-chart \
--n ${NAMESPACE} \
---install
+helm dep update
