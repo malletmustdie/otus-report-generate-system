@@ -8,7 +8,7 @@ spring:
 minio:
   url: http://localhost:9000
   access-key: admin
-  secret-key: ZpXpvcoxO6
+  secret-key: 8VEYpRZd9o
   bucket-name: reports
 
 management:
@@ -16,6 +16,13 @@ management:
     web:
       exposure:
         include: health, metrics, prometheus
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
   metrics:
     distribution:
       percentiles:

@@ -31,10 +31,10 @@ dbchecker:
 
 database:
   vendor: postgres
-  hostname: keycloak-db-postgresql
+  hostname: postgres-postgresql
   port: 5432
-  username: dbusername
-  password: dbpassword
+  username: postgres
+  password: postgres
   database: keycloak
 
 secrets:

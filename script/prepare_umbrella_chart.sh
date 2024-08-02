@@ -1,7 +1,6 @@
 #!/bin/bash
 
 PROJECT_NAME=umbrella
-NAMESPACE=dev
 
 cd ..
 

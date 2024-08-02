@@ -37,6 +37,13 @@ data:
         web:
           exposure:
             include: health, metrics, prometheus
+      tracing:
+        enabled: true
+        sampling:
+          probability: 1.0
+      otlp:
+        tracing:
+          endpoint: http://jaeger-jaeger-all-in-one:4318/v1/traces
       metrics:
         distribution:
           percentiles:
@@ -49,6 +56,13 @@ data:
             http.server.requests: 10s
           slo:
             http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
+
+    opentracing:
+      jaeger:
+        udp-sender:
+          host: jaeger-agent
+          port: 5775
+        enable-b3-propagation: true
 
     springdoc:
       swagger-ui:

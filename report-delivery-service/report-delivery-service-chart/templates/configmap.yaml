@@ -30,6 +30,13 @@ data:
         web:
           exposure:
             include: health, metrics, prometheus
+      tracing:
+        enabled: true
+        sampling:
+          probability: 1.0
+      otlp:
+        tracing:
+          endpoint: http://jaeger-jaeger-all-in-one:4318/v1/traces
       metrics:
         distribution:
           percentiles:

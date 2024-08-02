@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: api-gateway
+    name: api-gateway-local
 
   security:
     oauth2:
@@ -25,17 +25,24 @@ keycloak:
   token:
     url: ${keycloak.auth-url}/realms/${keycloak.realm}/protocol/openid-connect/token
     client: health
-    client-secret: lOLb22HxdIFibLOCLzUQpAFQbeXgql72
+    client-secret: UySC5zBFUGU0ZkIIZ2PYf0ujlBd4897i
   admin:
     url: ${keycloak.auth-url}/admin/realms/${keycloak.realm}/users
     client: admin-cli
-    client-secret: fd3dPFvHWkA1hP5DGkLhgQTSW3X2EG8k
+    client-secret: 1bqDA10GoZfRnEaj9zhTKlfK0IpQPi5f
 
 management:
   endpoints:
     web:
       exposure:
         include: health, metrics, prometheus
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
   metrics:
     distribution:
       percentiles:

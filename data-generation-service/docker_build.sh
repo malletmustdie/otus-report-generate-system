@@ -2,7 +2,7 @@
 
 # Название и версия образа
 IMAGE_NAME="data-generation-service"
-IMAGE_VERSION="0.1.2"
+IMAGE_VERSION="0.1.3"
 DOCKER_HUB_USERNAME="malletmustdie"
 
 # Полное имя образа

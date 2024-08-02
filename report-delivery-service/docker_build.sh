@@ -2,7 +2,7 @@
 
 # Название и версия образа
 IMAGE_NAME="report-delivery-service"
-IMAGE_VERSION="0.1.4"
+IMAGE_VERSION="0.1.5"
 DOCKER_HUB_USERNAME="malletmustdie"
 
 # Полное имя образа

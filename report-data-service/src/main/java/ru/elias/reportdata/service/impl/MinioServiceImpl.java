@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.elias.reportdata.error.exception.MinioBucketOperationException;
 import ru.elias.reportdata.error.exception.MinioFileRetrievalException;
-import ru.elias.reportdata.error.exception.MinioFileUploadException;
 import ru.elias.reportdata.service.MinioService;
 
 @Slf4j
@@ -55,7 +54,7 @@ public class MinioServiceImpl implements MinioService {
         }
     }
 
-    private void ensureBucketExists() throws Exception {
+    private void ensureBucketExists() {
         log.info("Checking if bucket exists: {}", bucketName);
         try {
             if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {

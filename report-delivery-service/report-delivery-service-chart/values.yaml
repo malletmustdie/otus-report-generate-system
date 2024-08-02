@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: malletmustdie/report-delivery-service
   pullPolicy: Always
-  tag: "0.1.4"
+  tag: "0.1.5"
 
 service:
   type: ClusterIP
