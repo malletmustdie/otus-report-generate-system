@@ -50,11 +50,11 @@ public class BaseReportService {
         log.info("BaseReportService initialized with {} report fillers.", jasperReportFillers.size());
     }
 
-    public ReportConfig generateReport(ReportData report, ReportFormat format) {
+    public ReportConfig generateReport(String idempotencyKey, ReportData report, ReportFormat format) {
         log.info("Generating report for format: {}", format);
         var reportData = generate(report, format);
         log.info("Report generated successfully, saving report...");
-        return reportDataService.saveReport(reportData.toByteArray(), format);
+        return reportDataService.saveReport(idempotencyKey, reportData.toByteArray(), format);
     }
 
     private ByteArrayOutputStream generate(ReportData report, ReportFormat format) {

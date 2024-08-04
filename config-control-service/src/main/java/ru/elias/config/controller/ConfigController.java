@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.elias.config.domain.entity.ConfigEntity;
 import ru.elias.config.domain.entity.dto.Config;
+import ru.elias.config.error.exception.ConfigNotFoundException;
 import ru.elias.config.repository.ConfigRepository;
 
 @Slf4j
@@ -25,33 +26,41 @@ public class ConfigController {
 
     @PostMapping
     public void addConfig(@RequestBody @Valid Config config) {
-        log.info("POST: /api/v1/configs - add new config {}", config);
+        log.info("POST request to /api/v1/configs - Adding new config: {}", config);
         var entity = ConfigEntity.builder()
                 .reportName(UUID.fromString(config.fileName()))
                 .extension(config.extension())
                 .build();
         configRepository.save(entity);
-        log.info("Add config for report {}", config);
+        log.info("Successfully added config for report: {}", config);
     }
 
     @GetMapping
     public List<Config> getConfigs() {
-        log.info("GET: /api/v1/configs - get all configs");
-        return configRepository.findAll()
+        log.info("GET request to /api/v1/configs - Retrieving all configs");
+        var configs = configRepository.findAll()
                 .stream()
                 .map(this::toConfig)
                 .toList();
+        log.info("Retrieved {} configs", configs.size());
+        return configs;
     }
 
     @GetMapping("/{fileName}")
     public Config getConfig(@PathVariable UUID fileName) {
-        log.info("GET: /api/v1/configs - get config by filename {}", fileName);
-        return configRepository.findById(fileName)
+        log.info("GET request to /api/v1/configs/{} - Retrieving config", fileName);
+        var config = configRepository.findById(fileName)
                 .map(this::toConfig)
-                .orElseThrow(() -> new RuntimeException("Config for file name '%s' not found!".formatted(fileName)));
+                .orElseThrow(() -> {
+                    log.error("Config for file name '{}' not found", fileName);
+                    return new ConfigNotFoundException("Config for file name '%s' not found!".formatted(fileName));
+                });
+        log.info("Successfully retrieved config for file name: {}", fileName);
+        return config;
     }
 
     private Config toConfig(ConfigEntity entity) {
+        log.debug("Converting ConfigEntity to Config: {}", entity);
         return Config.builder()
                 .fileName(entity.getReportName().toString())
                 .extension(entity.getExtension())

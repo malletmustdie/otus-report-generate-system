@@ -1,26 +1,30 @@
 server:
-  port: 8083
+  port: 8081
 
 spring:
   application:
     name: report-generator-service
-  jackson:
-    serialization:
-      fail-on-empty-beans: false
 
 service:
   data-generation-service:
-    base-uri: http://localhost:8084/api/v1/warehouse
+    base-uri: http://localhost:8082/api/v1/warehouse
   report-data-service:
-    base-uri: http://localhost:8086/reports/upload
+    base-uri: http://localhost:8083/reports/upload
   config-control-service:
-    base-uri: http://localhost:8090/api/v1/configs
+    base-uri: http://localhost:8084/api/v1/configs
 
 management:
   endpoints:
     web:
       exposure:
         include: health, metrics, prometheus
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
   metrics:
     distribution:
       percentiles:

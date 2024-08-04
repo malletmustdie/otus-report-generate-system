@@ -5,5 +5,5 @@ import ru.elias.reportgenerator.domain.report.ReportFormat;
 
 public interface ReportDataService {
 
-    ReportConfig saveReport(byte[] reportData, ReportFormat format);
+    ReportConfig saveReport(String idempotencyKey, byte[] reportData, ReportFormat format);
 }

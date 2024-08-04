@@ -59,3 +59,7 @@ build/
 /api-gateway/HELP.md
 /api-gateway/mvnw
 /api-gateway/mvnw.cmd
+/report-delivery-service/.mvn/
+/report-delivery-service/mvnw
+/report-delivery-service/HELP.md
+/report-delivery-service/mvnw.cmd

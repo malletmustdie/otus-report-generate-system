@@ -6,19 +6,44 @@ data:
   application.yml: |
     server:
       port: {{ .Values.service.port }}
+
     spring:
       application:
         name: {{ include "_helpers-api-gateway.name" . }}
-    service:
+      security:
+        oauth2:
+          resourceserver:
+            jwt:
+              issuer-uri: http://keycloak-keycloakx-http/auth/realms/health-realm
+
+    services:
       config-control-service:
-        base-uri: {{ .Values.data.service.configControlService.baseUri }}
+        base-uri: {{ .Values.data.services.configControlService.baseUri }}
       report-generator-service:
-        bae-uri: {{ .Values.data.service.reportGeneratorService.baseUri }}
+        base-uri: {{ .Values.data.services.reportGeneratorService.baseUri }}
+      report-delivery-service:
+        base-uri: {{ .Values.data.services.reportDeliveryService.baseUri }}
+
+    keycloak:
+      auth-url: {{ .Values.keycloak.authUrl }}
+      realm: {{ .Values.keycloak.realm }}
+      token:
+        url: ${keycloak.auth-url}/realms/${keycloak.realm}/protocol/openid-connect/token
+      admin:
+        url: ${keycloak.auth-url}/admin/realms/${keycloak.realm}/users
+
     management:
       endpoints:
         web:
           exposure:
             include: health, metrics, prometheus
+      tracing:
+        enabled: true
+        sampling:
+          probability: 1.0
+      otlp:
+        tracing:
+          endpoint: http://jaeger-jaeger-all-in-one:4318/v1/traces
       metrics:
         distribution:
           percentiles:
@@ -31,6 +56,18 @@ data:
             http.server.requests: 10s
           slo:
             http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
+
+    opentracing:
+      jaeger:
+        udp-sender:
+          host: jaeger-agent
+          port: 5775
+        enable-b3-propagation: true
+
+    springdoc:
+      swagger-ui:
+        path: /docs
+
     logging:
       level:
         ru.elias.gateway: DEBUG

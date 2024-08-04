@@ -1,0 +1,38 @@
+replicaCount: 1
+
+image:
+  repository: malletmustdie/report-delivery-service
+  pullPolicy: Always
+  tag: "0.1.5"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+serviceAccount: report-delivery-service-user
+
+services:
+  reportDataService:
+    baseUri: http://report-data-service:8080/reports
+
+mail:
+  host: smtp.gmail.com
+  port: 587
+  properties:
+    mail:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+      debug: true
+  subject: "[report-generate-system] Your Report"
+  text: "Please check the attached report."
+  attachmentName: "report-%s"
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "50m"
+  limits:
+    memory: "1Gi"
+    cpu: "400m"

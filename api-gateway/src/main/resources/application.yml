@@ -5,17 +5,44 @@ spring:
   application:
     name: api-gateway
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.auth-url}/realms/${keycloak.realm}
+
 services:
   config-control-service:
-    base-uri: http://localhost:8090/api/v1/configs
+    base-uri: http://localhost:8084/api/v1/configs
   report-generator-service:
-    base-uri: http://localhost:8083/api/v1/reports
+    base-uri: http://localhost:8081/api/v1/reports
+  report-delivery-service:
+    base-uri: http://localhost:8085/api/v1/delivery
+
+keycloak:
+  auth-url: http://localhost:9191/auth
+  realm: health-realm
+  token:
+    url: ${keycloak.auth-url}/realms/${keycloak.realm}/protocol/openid-connect/token
+    client: health
+    client-secret: UySC5zBFUGU0ZkIIZ2PYf0ujlBd4897i
+  admin:
+    url: ${keycloak.auth-url}/admin/realms/${keycloak.realm}/users
+    client: admin-cli
+    client-secret: 1bqDA10GoZfRnEaj9zhTKlfK0IpQPi5f
 
 management:
   endpoints:
     web:
       exposure:
         include: health, metrics, prometheus
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
   metrics:
     distribution:
       percentiles:
@@ -28,6 +55,10 @@ management:
         http.server.requests: 10s
       slo:
         http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
+
+springdoc:
+  swagger-ui:
+    path: /docs
 
 logging:
   level:

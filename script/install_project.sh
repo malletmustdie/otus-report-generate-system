@@ -3,5 +3,9 @@
 PROJECT_NAME=umbrella
 NAMESPACE=dev
 
+cd ..
+
 # Установка или обновление основного проекта
-helm upgrade --install ${PROJECT_NAME} ./${PROJECT_NAME}-chart --namespace ${NAMESPACE}
+helm upgrade report-generate-service ./${PROJECT_NAME}-chart \
+-n ${NAMESPACE} \
+--install

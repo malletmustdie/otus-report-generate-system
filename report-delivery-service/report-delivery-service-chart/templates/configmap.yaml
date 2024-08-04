@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "_helpers-report-delivery-service.name" . }}
+data:
+  application.yml: |
+    server:
+      port: {{ .Values.service.port }}
+    spring:
+      application:
+        name: {{ include "_helpers-report-delivery-service.name" . }}
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      properties:
+        mail:
+          smtp:
+            auth: true
+            starttls:
+              enable: true
+          debug: true
+      subject: {{ .Values.mail.subject | quote }}
+      text: {{ .Values.mail.text | quote }}
+      attachment-name: {{ .Values.mail.attachmentName | quote }}
+    services:
+      report-data-service:
+        base-uri: {{ .Values.services.reportDataService.baseUri }}
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: health, metrics, prometheus
+      tracing:
+        enabled: true
+        sampling:
+          probability: 1.0
+      otlp:
+        tracing:
+          endpoint: http://jaeger-jaeger-all-in-one:4318/v1/traces
+      metrics:
+        distribution:
+          percentiles:
+            http.server.requests: 0.99, 0.95, 0.9, 0.7, 0.5
+          percentiles-histogram:
+            http.server.requests: true
+          minimum-expected-value:
+            http.server.requests: 100ms
+          maximum-expected-value:
+            http.server.requests: 10s
+          slo:
+            http.server.requests: 10ms, 50ms, 100ms, 200ms, 300ms, 400ms, 500ms, 600ms, 800ms
+    logging:
+      level:
+        ru.elias.gateway: DEBUG
