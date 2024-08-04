@@ -63,3 +63,4 @@ springdoc:
 logging:
   level:
     ru.elias.gateway: DEBUG
+    ##org.springframework.security: TRACE
