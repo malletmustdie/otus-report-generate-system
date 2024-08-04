@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: api-gateway-local
+    name: api-gateway
 
   security:
     oauth2:
