@@ -32,29 +32,29 @@
 ![alt text](https://github.com/malletmustdie/otus-report-generate-system/blob/main/tech_docs/img/scheme.png)
 
 ## Использование
-## **Для использования сервиса под свои нужды вы можете переопределять переменные в values umbrella чарта [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/umbrella-chart/Chart.yaml)**
+## **Для использования сервиса под свои нужды вы можете переопределять переменные в values umbrella чарта [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/umbrella-chart/values.yaml)**
 
 ### **Postgres**
 В чартах указаны креды для подключения к базам данных, но при желании можно переопределить для своих примеров
 ```
 config-control-service:
   database:
-    host: <db-host>
-    port: <db-port>
+    host: postgres-postgresql
+    port: 5432
     db: config_control_service
     username: <db-username>
     password: <db-password>
 ...
 external-data-service:
   database:
-    host: <db-host>
-    port: <db-port>
+    host: postgres-postgresql
+    port: 5432
     db: external_data_service
     username: <db-username>
     password: <db-password>
 ```
 ### **Keycloak**
-- После вызова `install_keycloak.sh` и деплоя потребуется добавить настройки realm, json можно найти [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/umbrella-chart/keycloak)
+- После вызова `install_keycloak.sh` и деплоя потребуется добавить настройки realm, json можно найти [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/umbrella-chart/keycloak/realm-export.json)
 - В консоли Keycloak выполните следующие действия `Keycloak console -> Create Realm -> Resource file`
 В связи с тем, что api-gateway проксирует методы Keycloak admin-api так же потребуется сгенерировать и вставить в секрет `client_id` для `health` или вашего клиента и `admin-cli`
 ```
