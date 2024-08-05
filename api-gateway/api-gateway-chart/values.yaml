@@ -22,7 +22,14 @@ data:
 
 keycloak:
   authUrl: http://keycloak-keycloakx-http:80/auth
-  realm: health-realm
+  realm:
+  token:
+    client:
+      clientId:
+      clientSecret:
+    admin:
+      clientId:
+      clientSecret:
 
 resources:
   requests:

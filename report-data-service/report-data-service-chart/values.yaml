@@ -11,7 +11,9 @@ service:
 
 minio:
   url: http://minio.dev.svc.cluster.local:9000
-  bucketName: reports
+  bucketName:
+  accessKey:
+  secretKey:
 
 serviceAccount: report-data-service-user
 

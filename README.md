@@ -1,5 +1,5 @@
 # Сервис генерации отчетов
-Система Генерации Отчетов Otus предназначена для упрощения процесса создания и управления структурированными документами. Эта система разработана для автоматизации генерации отчетов, обеспечения их согласованности и повышения производительности.
+Система Генерации Отчетов предназначена для упрощения процесса создания и управления структурированными документами. Эта система разработана для автоматизации генерации отчетов, обеспечения их согласованности и повышения производительности.
 
 ## Содержание
 - [Основные функции](#основные-функции)
@@ -32,41 +32,61 @@
 ![alt text](https://github.com/malletmustdie/otus-report-generate-system/blob/main/tech_docs/img/scheme.png)
 
 ## Использование
+## **Для использования сервиса под свои нужды вы можете переопределять переменные в values umbrella чарта [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/umbrella-chart/Chart.yaml)**
 
+### **Postgres**
+В чартах указаны креды для подключения к базам данных, но при желании можно переопределить для своих примеров
+```
+config-control-service:
+  database:
+    host: <db-host>
+    port: <db-port>
+    db: config_control_service
+    username: <db-username>
+    password: <db-password>
+...
+external-data-service:
+  database:
+    host: <db-host>
+    port: <db-port>
+    db: external_data_service
+    username: <db-username>
+    password: <db-password>
+```
 ### **Keycloak**
 - После вызова `install_keycloak.sh` и деплоя потребуется добавить настройки realm, json можно найти [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/umbrella-chart/keycloak)
 - В консоли Keycloak выполните следующие действия `Keycloak console -> Create Realm -> Resource file`
-В связи с тем, что api-gateway проксирует методы Keycloak admin-api так же потребуется сгенерировать и вставить в секрет [api-gateway]() `client_id` для `health` и `admin-cli`
+В связи с тем, что api-gateway проксирует методы Keycloak admin-api так же потребуется сгенерировать и вставить в секрет `client_id` для `health` или вашего клиента и `admin-cli`
 ```
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ .Chart.Name }}
-stringData:
-  secret.yml: |
-    keycloak:
-      token:
-        client: health
-        client-secret: health-secret
-      admin:
-        client: admin-cli
-        client-secret: admin-cli-secret
+api-gateway:
+  realm: health-realm
+  token:
+    client:
+      clientId: <client>
+      clientSecret: <client-secret>
+    admin:
+      clientId: admin-cli
+      clientSecret: <client-secret>
 ```
 ### **Minio**
-- После вызова `install_minio.sh` и деплоя потребуется добавить `secret-key` секрет [report-data-service]()
+- После вызова `install_minio.sh` и деплоя потребуется добавить `access-key` и`secret-key` секрет и при желании `bucketname` 
 ```
-apiVersion: v1
-kind: Secret
-metadata:
-  name: {{ .Chart.Name }}
-stringData:
-  secret.yml: |
-    minio:
-      access-key: admin
-      secret-key: secret-key
+report-data-service:
+  minio:
+    bucketName: <bucketname>
+    accessKey: <access-key>
+    secretKey: <secret-key>
 ```
-### SMS рассылка
-Для рассылки отчета по Email потребуется использование SMTP сервера, его настройки можно указать [здесь]()
+### **SMS рассылка**
+Для рассылки отчета по Email потребуется использование SMTP сервера, его настройки можно указать 
+```
+report-delivery-service:
+  mail:
+    host: <smtp-host>
+    username: <smtp-username>
+    password: <smtp-password>
+    port: <smtp-port>
+```
 
 ## Разработка
 
@@ -77,13 +97,13 @@ stringData:
 - [Helm](https://helm.sh/)
 
 ### Установка зависимостей
-Для установки зависимостей, выполните команду:
+Для установки зависимостей, выполните команду или воспользуйтесь скриптами [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/script):
 ```
 helm-upgrade.sh
 ```
 
 ## Тестирование
-Для прогона тест кейсов можно использовать `postman` коллекцию, взять которую можно [здесь]()
+Для прогона тест кейсов можно использовать `postman` коллекцию, взять которую можно [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/test-collection-postman)
 
 ## To do
 - [x] Добавить крутое README
