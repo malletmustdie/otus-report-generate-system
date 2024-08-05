@@ -43,6 +43,7 @@
 ### **Postgres**
 В чартах указаны креды для подключения к базам данных, которые можно переопределить для своих примеров:
 ``` yaml
+...
 config-control-service:
   database:
     host: postgres-postgresql
@@ -58,12 +59,14 @@ external-data-service:
     db: external_data_service
     username: <db-username>
     password: <db-password>
+...
 ```
 ### **Keycloak**
 - После вызова install_keycloak.sh и деплоя потребуется добавить настройки realm, JSON можно найти [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/umbrella-chart/keycloak/realm-export.json)
 - В консоли Keycloak выполните следующие действия: Keycloak console -> Create Realm -> Resource file.
 - Для корректной работы api-gateway потребуется сгенерировать и вставить в секрет `client_id` и `client_secret` для клиента `health` или вашего клиента и `admin-cli`:
 ``` yaml
+...
 api-gateway:
   realm: health-realm
   token:
@@ -73,6 +76,7 @@ api-gateway:
     admin:
       clientId: admin-cli
       clientSecret: <client-secret>
+...      
 ```
 ### **Minio**
 После вызова `install_minio.sh` и деплоя потребуется добавить `access-key` и `secret-key` в секрет, и при желании `bucketName`:
@@ -85,13 +89,15 @@ report-data-service:
 ```
 ### **SMS рассылка**
 Для рассылки отчетов по Email потребуется использование SMTP сервера, его настройки можно указать следующим образом:
-```
+``` yaml
+...
 report-delivery-service:
   mail:
     host: <smtp-host>
     username: <smtp-username>
     password: <smtp-password>
     port: <smtp-port>
+...
 ```
 
 ## Разработка
@@ -104,7 +110,7 @@ report-delivery-service:
 
 ### Установка зависимостей
 Для установки зависимостей выполните команду или воспользуйтесь скриптами [здесь](https://github.com/malletmustdie/otus-report-generate-system/blob/main/script):
-``` sh
+``` shell
 helm-upgrade.sh
 ```
 
