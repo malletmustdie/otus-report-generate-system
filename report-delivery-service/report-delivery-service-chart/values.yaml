@@ -16,8 +16,10 @@ services:
     baseUri: http://report-data-service:8080/reports
 
 mail:
-  host: smtp.gmail.com
-  port: 587
+  host:
+  username:
+  password:
+  port:
   properties:
     mail:
       smtp:

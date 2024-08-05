@@ -1,10 +1,38 @@
-billing-service:
+api-gateway:
+  realm: health-realm
+  token:
+    client:
+      clientId: health
+      clientSecret: UySC5zBFUGU0ZkIIZ2PYf0ujlBd4897i
+    admin:
+      clientId: admin-cli
+      clientSecret: 1bqDA10GoZfRnEaj9zhTKlfK0IpQPi5f
+
+config-control-service:
   database:
     host: postgres-postgresql
     port: 5432
-    db: billing_service
-order-service:
+    db: config_control_service
+    username: postgres
+    password: postgres
+
+external-data-service:
   database:
     host: postgres-postgresql
     port: 5432
-    db: order_service
+    db: external_data_service
+    username: postgres
+    password: postgres
+
+report-data-service:
+  minio:
+    bucketName: reports
+    accessKey: admin
+    secretKey: 8VEYpRZd9o
+
+report-delivery-service:
+  mail:
+    host: smtp.gmail.com
+    username: mallet322@gmail.com
+    password: etmw lklq vymu tlmw
+    port: 587

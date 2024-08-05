@@ -1,0 +1,838 @@
+{
+	"info": {
+		"_postman_id": "03aea64b-30c9-4f79-bc0a-ba57a7ac1a53",
+		"name": "Report generate service operations Copy",
+		"description": "Collection of requests for report generate service operations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13677432"
+	},
+	"item": [
+		{
+			"name": "SSO operations",
+			"item": [
+				{
+					"name": "1. Registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newUser\",\n    \"email\": \"newuser@example.com\",\n    \"firstName\": \"New\",\n    \"lastName\": \"User\",\n    \"password\": \"newUserPassword\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/sso/reg",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sso",
+								"reg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get access token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has access token\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('accessToken');",
+									"    pm.expect(jsonData).to.have.property('refreshToken');",
+									"    pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);",
+									"    pm.collectionVariables.set(\"refreshToken\", jsonData.refreshToken);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"newUser\",\n    \"password\": \"newUserPassword\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/sso/token/access",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"sso",
+								"token",
+								"access"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Operations about users",
+			"item": [
+				{
+					"name": "GetUserInfoTest",
+					"item": [
+						{
+							"name": "1. Get user info without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/v1/users/userInfo",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"userInfo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get access token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response has access token\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property('accessToken');",
+											"    pm.expect(jsonData).to.have.property('refreshToken');",
+											"    pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);",
+											"    pm.collectionVariables.set(\"refreshToken\", jsonData.refreshToken);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"newUser\",\n    \"password\": \"newUserPassword\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/sso/token/access",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"sso",
+										"token",
+										"access"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Get user info with token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response has user info\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property('username');",
+											"    pm.expect(jsonData).to.have.property('email');",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										},
+										{
+											"key": "undefined",
+											"type": "any"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/v1/users/userInfo",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"userInfo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UpdateUserTest",
+					"item": [
+						{
+							"name": "1. Update user info without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"newUser\",\n    \"email\": \"newemail@example.com\",\n    \"firstName\": \"Updated\",\n    \"lastName\": \"User\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/v1/users",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get access token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response has access token\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property('accessToken');",
+											"    pm.expect(jsonData).to.have.property('refreshToken');",
+											"    pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);",
+											"    pm.collectionVariables.set(\"refreshToken\", jsonData.refreshToken);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"newUser\",\n    \"password\": \"newUserPassword\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/sso/token/access",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"sso",
+										"token",
+										"access"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Update user info with token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										},
+										{
+											"key": "undefined",
+											"type": "any"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"newUser\",\n    \"email\": \"newemail@example.com\",\n    \"firstName\": \"Updated\",\n    \"lastName\": \"User\",\n    \"password\": \"newUserPassword\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/v1/users",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Operations about generation reports",
+			"item": [
+				{
+					"name": "CreateReportTest",
+					"item": [
+						{
+							"name": "1. Get report without token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/v1/reports/dealerWarehouseReport?format=PDF",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"reports",
+										"dealerWarehouseReport"
+									],
+									"query": [
+										{
+											"key": "format",
+											"value": "PDF"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get access token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response has access token\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property('accessToken');",
+											"    pm.expect(jsonData).to.have.property('refreshToken');",
+											"    pm.collectionVariables.set(\"accessToken\", jsonData.accessToken);",
+											"    pm.collectionVariables.set(\"refreshToken\", jsonData.refreshToken);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"newUser\",\n    \"password\": \"newUserPassword\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/sso/token/access",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"sso",
+										"token",
+										"access"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Get report with token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Response has config\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.have.property('fileName');",
+											"    pm.collectionVariables.set(\"fileName\", jsonData.fileName);",
+											"    ",
+											"    var idempotencyKey = pm.request.headers.get(\"Idempotency-Key\");",
+											"    if (idempotencyKey) {",
+											"        pm.collectionVariables.set(\"idempotencyKey\", idempotencyKey);",
+											"    } else {",
+											"        console.log(\"Idempotency-Key header is missing in the request\");",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										},
+										{
+											"key": "undefined",
+											"type": "any"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Idempotency-Key",
+										"value": "{{$guid}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/api/v1/reports/dealerWarehouseReport?format=PDF",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"reports",
+										"dealerWarehouseReport"
+									],
+									"query": [
+										{
+											"key": "format",
+											"value": "PDF"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. Idempotency Get report with token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										},
+										{
+											"key": "undefined",
+											"type": "any"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Idempotency-Key",
+										"value": "{{idempotencyKey}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/api/v1/reports/dealerWarehouseReport?format=PDF",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"reports",
+										"dealerWarehouseReport"
+									],
+									"query": [
+										{
+											"key": "format",
+											"value": "PDF"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. Get report configs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response has configs\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData).to.be.an('array').that.is.not.empty;",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										},
+										{
+											"key": "undefined",
+											"type": "any"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/v1/configs",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"configs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "6. Download report",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										},
+										{
+											"key": "undefined",
+											"type": "any"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/v1/delivery/download/{{fileName}}",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"delivery",
+										"download",
+										"{{fileName}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "7. Send report via email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										},
+										{
+											"key": "undefined",
+											"type": "any"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{HOST}}/api/v1/delivery/send-email/{{fileName}}?email=mallet322@gmail.com",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"delivery",
+										"send-email",
+										"{{fileName}}"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "mallet322@gmail.com"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "accessToken",
+			"value": ""
+		},
+		{
+			"key": "refreshToken",
+			"value": ""
+		},
+		{
+			"key": "fileName",
+			"value": ""
+		},
+		{
+			"key": "idempotencyKey",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "IdempotencyKey",
+			"value": ""
+		}
+	]
+}
