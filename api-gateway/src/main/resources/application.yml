@@ -25,11 +25,11 @@ keycloak:
   token:
     url: ${keycloak.auth-url}/realms/${keycloak.realm}/protocol/openid-connect/token
     client: health
-    client-secret: UySC5zBFUGU0ZkIIZ2PYf0ujlBd4897i
+    client-secret: ${CLIENT_SECRET}
   admin:
     url: ${keycloak.auth-url}/admin/realms/${keycloak.realm}/users
     client: admin-cli
-    client-secret: 1bqDA10GoZfRnEaj9zhTKlfK0IpQPi5f
+    client-secret: ${ADMIN_CLIENT_SECRET}
 
 management:
   endpoints:
@@ -63,4 +63,4 @@ springdoc:
 logging:
   level:
     ru.elias.gateway: DEBUG
-    ##org.springframework.security: TRACE
+    org.springframework.security: TRACE

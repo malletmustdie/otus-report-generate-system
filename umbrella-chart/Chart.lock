@@ -1,7 +1,7 @@
 dependencies:
 - name: api-gateway
   repository: file://../api-gateway/api-gateway-chart
-  version: 0.1.8
+  version: 0.1.9
 - name: external-data-service
   repository: file://../external-data-service/external-data-service-chart
   version: 0.1.3
@@ -20,5 +20,5 @@ dependencies:
 - name: config-control-service
   repository: file://../config-control-service/config-control-service-chart
   version: 0.1.3
-digest: sha256:c7a277b46452e00e961badfe9cb782824f89faddbca1558499b35bae41e0b3c5
-generated: "2024-08-08T19:07:38.352466+03:00"
+digest: sha256:2d5076241ff873048d576216fa9bdad1c72a99b442f078c2cddc19ead2fd2624
+generated: "2024-08-11T14:09:48.499818+03:00"

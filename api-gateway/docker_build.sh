@@ -2,7 +2,7 @@
 
 # Название и версия образа
 IMAGE_NAME="api-gateway"
-IMAGE_VERSION="0.1.8"
+IMAGE_VERSION="0.1.9"
 DOCKER_HUB_USERNAME="malletmustdie"
 
 # Полное имя образа

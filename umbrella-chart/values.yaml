@@ -28,12 +28,12 @@ external-data-service:
 report-data-service:
   minio:
     bucketName: reports
-    accessKey: admin
-    secretKey: dm97iQT4tX
+    accessKey:
+    secretKey:
 
 report-delivery-service:
   mail:
-    host: smtp.gmail.com
-    username: mallet322@gmail.com
-    password: etmw lklq vymu tlmw
-    port: 587
+    host:
+    username:
+    password:
+    port:
