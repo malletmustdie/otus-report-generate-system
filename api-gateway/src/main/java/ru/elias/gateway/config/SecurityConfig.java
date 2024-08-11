@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(
-                                "/docs",
+                                "/",
                                 "/actuator/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",

@@ -1,9 +1,15 @@
 replicaCount: 1
 
+ingress:
+  host: "report.elias.dev"
+  className: nginx
+  tls:
+    secret: tls-secret
+
 image:
   repository: malletmustdie/api-gateway
   pullPolicy: Always
-  tag: "0.1.7"
+  tag: "0.1.8"
 
 service:
   type: ClusterIP

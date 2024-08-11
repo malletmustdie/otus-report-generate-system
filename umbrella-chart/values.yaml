@@ -1,12 +1,13 @@
 api-gateway:
-  realm: health-realm
-  token:
-    client:
-      clientId: health
-      clientSecret: UySC5zBFUGU0ZkIIZ2PYf0ujlBd4897i
-    admin:
-      clientId: admin-cli
-      clientSecret: 1bqDA10GoZfRnEaj9zhTKlfK0IpQPi5f
+  keycloak:
+    realm: health-realm
+    token:
+      client:
+        clientId: health
+        clientSecret: R6YcXSYzNkOGG24Lv3jsdg1wVexe4yeB
+      admin:
+        clientId: admin-cli
+        clientSecret: 4C8ObyVoaW1HowyvzVtg4DASXJ3aiyQ1
 
 config-control-service:
   database:
@@ -28,7 +29,7 @@ report-data-service:
   minio:
     bucketName: reports
     accessKey: admin
-    secretKey: 8VEYpRZd9o
+    secretKey: dm97iQT4tX
 
 report-delivery-service:
   mail:

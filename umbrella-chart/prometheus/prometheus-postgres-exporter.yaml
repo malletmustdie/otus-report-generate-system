@@ -1,0 +1,33 @@
+config:
+  datasource:
+    host: "postgres-postgresql"
+    user: postgres
+    password: postgres
+  postgresExporter: |
+    auth_modules:
+      external_data_service:
+        type: userpass
+        userpass:
+          username: postgres
+          password: postgres
+        options:
+          sslmode: disable
+      config_control_service:
+        type: userpass
+        userpass:
+          username: postgres
+          password: postgres
+        options:
+          sslmode: disable
+      keycloak:
+        type: userpass
+        userpass:
+          username: postgres
+          password: postgres
+        options:
+          sslmode: disable
+serviceMonitor:
+  enabled: true
+  namespace: dev
+  interval: 30s
+  telemetryPath: /metrics
