@@ -4,12 +4,10 @@ NAMESPACE=dev
 PG_USERNAME=postgres
 PG_PASSWORD=postgres
 
-## Установка PostgreSQL через Helm
-#helm install postgres oci://registry-1.docker.io/bitnamicharts/postgresql \
-#--set auth.username=${PG_USERNAME},auth.password=${PG_PASSWORD} \
-#--namespace ${NAMESPACE}
-#
-#sleep 20
+# Установка PostgreSQL через Helm
+helm install postgres oci://registry-1.docker.io/bitnamicharts/postgresql \
+--set auth.username=${PG_USERNAME},auth.password=${PG_PASSWORD} \
+--namespace ${NAMESPACE}
 
 # Создать новые базы данных
 PG_POD_NAME=$(kubectl get pods -l app.kubernetes.io/name=postgresql -n ${NAMESPACE} -o jsonpath='{.items[0].metadata.name}')

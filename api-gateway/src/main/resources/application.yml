@@ -58,7 +58,7 @@ management:
 
 springdoc:
   swagger-ui:
-    path: /docs
+    path: /
 
 logging:
   level:
